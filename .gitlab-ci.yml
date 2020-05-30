@@ -1,0 +1,29 @@
+stages:
+    - test
+    - build
+
+build:
+    stage: build
+    script:
+        - mkdir -p test_results
+        - mv results.xml old_results.xml
+    artifacts:
+        paths:
+            - test_results/
+
+test:
+    stage: test
+    image: python:3.7
+    script:
+        - echo "Testing"
+        - pip install pytest
+        - pip install webdriver-manager
+        - pwd
+        - cd code/test/
+        - ls -l
+        - export PYTHONPATH="$PYTHONPATH:."
+        - python -c "import sys;print(sys.path)"
+        - py.test --junitxml test_results/results.xml test_models.py -v
+    artifacts:
+        reports:
+            junit: test_results/results.xml
