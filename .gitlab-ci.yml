@@ -5,7 +5,7 @@ stages:
 build:
     stage: build
     script:
-        - mkdir -p test_results
+        - mkdir -p code/test/test_results
     artifacts:
         paths:
             - code/test/test_results/
