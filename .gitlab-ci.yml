@@ -5,6 +5,7 @@ stages:
 build:
     stage: build
     script:
+        - pip install -r requirments.txt
         - mkdir -p test_results
         - mv results.xml old_results.xml
     artifacts:
