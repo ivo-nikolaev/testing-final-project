@@ -1,10 +1,10 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_restful import Api
 from flask_jwt import JWT
 
 from security import authenticate, identity
 from resources.user import UserRegister
-from resources.photo import PhotoUpload
+from resources.photo import PhotoUpload, PhotoGet
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -42,6 +42,10 @@ api.add_resource(UserRegister, '/register')
 # data : example.jpg - really any file at the moment
 # will upload the file to the DB
 api.add_resource(PhotoUpload, '/photo')
+
+#GET url/photo/id (if you have a picture uploaded it should be 1)
+#downloades the picture - you can test it in the browser
+api.add_resource(PhotoGet, '/photo/<string:_id>')
 
 
 # ##API CALLS

@@ -57,4 +57,5 @@ In case you want to terminate it, press CTRL + C
 # Additional
 
 The database is already generated (it's in code/data.db)
-There is a single user, with name "test" and a password "test"
+There is alread a single user, with name "test" and a password "test".
+There is an image with id=1, that you can test.

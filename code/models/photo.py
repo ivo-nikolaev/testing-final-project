@@ -17,6 +17,10 @@ class PhotoModel(db.Model):
         self.photo_name = photo_name
         self.data = data
 
+    @classmethod
+    def find_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
+
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
