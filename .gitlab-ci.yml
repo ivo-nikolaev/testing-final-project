@@ -1,7 +1,6 @@
 stages:
   - build
   - test
-  - confidence-check
 
 build:
   stage: build
@@ -18,7 +17,7 @@ unit test:
     - echo "Testing"
     - pip install -r requirments.txt
     - pip install pytest
-    - pip install webdriver-manager
+#    - pip install webdriver-manager
     - pwd
     - cd code/test/
     - ls -l
@@ -39,11 +38,27 @@ e2e:firefox:
     - pip install selenium
     - pip install pytest-selenium
     - chmod 777 /builds/dosehunter/testingmandatory2_exam/driver/geckodriver
-#    - pytest code/test/test_app.py
-    - pytest -vvv --driver Remote --capability browserName firefox --host selenium --port 4444 code/test/test_app.py
+    - pytest code/test/test_app.py
+    - pytest -vvv --driver firefox code/test/test_app.py
   services:
     - name: selenium/standalone-firefox
       alias: selenium
+
+#e2e:firefox:
+#  stage: test
+#  image: python:3.7
+#  script:
+#    - pwd
+#    - ls -l /builds/dosehunter/testingmandatory2_exam/
+#    - pip install pytest
+#    - pip install selenium
+#    - pip install pytest-selenium
+#    - chmod 777 /builds/dosehunter/testingmandatory2_exam/driver/geckodriver
+#    - pytest code/test/test_app.py
+#    - pytest -vvv --driver Remote --capability browserName firefox --host selenium --port 4444 code/test/test_app.py
+#  services:
+#    - name: selenium/standalone-firefox
+#      alias: selenium
 
 #e2e:firefox:
 #  stage: confidence-check
