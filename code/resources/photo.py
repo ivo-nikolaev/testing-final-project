@@ -1,10 +1,11 @@
 from flask import send_file
 from flask_restful import Resource, reqparse, request 
 from werkzeug.datastructures import FileStorage
-from flask_jwt import jwt_required
+from flask_jwt import jwt_required, current_identity
 from io import BytesIO
 
 from models.photo import PhotoModel
+from models.user import UserModel
 
 
 class PhotoUpload(Resource):
@@ -33,16 +34,21 @@ class PhotoUpload(Resource):
         file = data['data']
         newFile = file.read()
 
-        photo = PhotoModel(data['photo_name'],newFile)
+        user_id = current_identity.id
+
+        photo = PhotoModel(data['photo_name'],newFile, user_id)
         photo.save_to_db()
 
         return {"message": "Picture added succsfully"}, 201
 
 class PhotoGet(Resource):
-    # @jwt_required()
+    @jwt_required()
     def get(self, _id):
         photo = PhotoModel.find_by_id(_id)
-        if photo:
+
+        user_id = current_identity.id
+
+        if (photo and photo.user_id == user_id) :
             return send_file(
                 BytesIO(photo.data),
                 mimetype="image/jpeg")

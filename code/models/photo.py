@@ -8,18 +8,18 @@ class PhotoModel(db.Model):
     data = db.Column(db.LargeBinary)
     user_id = db.Column(db.Integer)
 
-    # def __init__(self, photo_name, data, user_id):
-    #     self.user = user
-    #     self.data = data
-    #     self.user_id = user_id
-
-    def __init__(self, photo_name, data):
+    def __init__(self, photo_name, data, user_id):
         self.photo_name = photo_name
         self.data = data
+        self.user_id = user_id
 
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
+
+    @classmethod
+    def find_by_name(cls, name):
+        return cls.query.filter_by(username = name).first()
 
     def save_to_db(self):
         db.session.add(self)
@@ -28,24 +28,3 @@ class PhotoModel(db.Model):
     def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
-
-    # price = db.Column(db.Float(precision=2))
-
-    # store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
-    # store = db.relationship('StoreModel')
-
-    # def __init__(self, name, price, store_id):
-    #     self.name = name
-    #     self.price = price
-    #     self.store_id = store_id
-
-    # def json(self):
-    #     return {'name': self.name, 'price': self.price}
-
-    # @classmethod
-    # def find_by_name(cls, name):
-    #     return cls.query.filter_by(name=name).first()
-
-    # def delete_from_db(self):
-    #     db.session.delete(self)
-    #     db.session.commit()
