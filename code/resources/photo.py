@@ -35,6 +35,7 @@ class PhotoUpload(Resource):
 
         return {"message": "Picture added succesfully"}, 201
 
+# It's ment to be used only for the owner of the 
 class PhotoGet(Resource):
     @jwt_required()
     def get(self, _id):
