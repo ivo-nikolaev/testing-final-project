@@ -1,6 +1,6 @@
 import pytest
 from selenium import webdriver
-import chromedriver_binary # pip install chromedriver-binary
+#import chromedriver_binary # pip install chromedriver-binary
 from webdriver_manager.chrome import ChromeDriverManager  #  pip install webdriver-manager
 from selenium.webdriver.common.keys import Keys
 
