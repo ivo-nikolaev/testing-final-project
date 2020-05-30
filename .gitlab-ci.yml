@@ -29,9 +29,11 @@ unit test:
     reports:
       junit: code/test/test_results/results.xml
 
-e2e:chrome:
+e2e:firefox:
   stage: test
   image: python:3.7
+  before_script:
+    - make install
   script:
     - pwd
     - ls -l /builds/dosehunter/testingmandatory2_exam/
@@ -40,9 +42,9 @@ e2e:chrome:
     - pip install pytest-selenium
     - chmod 777 /builds/dosehunter/testingmandatory2_exam/driver/lin_chromedriver
 #    - pytest code/test/test_app.py
-    - pytest -vvv --driver Remote --capability browserName chrome --host selenium --port 4444 code/test/test_app.py
+    - pytest -vvv --driver Remote --capability browserName firefox --host selenium --port 4444 code/test/test_app.py
   services:
-    - name: selenium/standalone-chrome
+    - name: selenium/standalone-firefox
       alias: selenium
 
 #e2e:firefox:
