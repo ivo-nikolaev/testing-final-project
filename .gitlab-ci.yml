@@ -36,11 +36,12 @@ e2e:chrome:
     - pwd
     - ls -l /builds/dosehunter/testingmandatory2_exam/
     - pip install pytest
-    - pip install webdriver-manager
+#    - pip install webdriver-manager
+    - sudo apt install chromium-chromedriver
     - pip install selenium
     - pip install pytest-selenium
-    - pytest code/test/test_app.py
-#    - pytest -vvv --driver Remote --capability browserName chrome --host selenium --port 4444 code/test/test_app.py
+#    - pytest code/test/test_app.py
+    - pytest -vvv --driver Remote --capability browserName chrome --host selenium --port 4444 code/test/test_app.py
   services:
     - name: selenium/standalone-chrome
       alias: selenium

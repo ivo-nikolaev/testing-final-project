@@ -1,7 +1,7 @@
 import pytest
 from selenium import webdriver
 #import chromedriver_binary # pip install chromedriver-binary
-from webdriver_manager.chrome import ChromeDriverManager  #  pip install webdriver-manager
+#from webdriver_manager.chrome import ChromeDriverManager  #  pip install webdriver-manager
 from selenium.webdriver.common.keys import Keys
 
 
@@ -12,8 +12,9 @@ class TestApp:
 
     @pytest.fixture
     def driver(self):
+        driver = webdriver.Chrome()
         #driver = webdriver.Chrome(ChromeDriverManager().install())
-        driver = webdriver.Chrome(executable_path=r"/builds/dosehunter/testingmandatory2_exam/driver/lin_chromedriver")  # Chrome
+        #driver = webdriver.Chrome(executable_path=r"/builds/dosehunter/testingmandatory2_exam/driver/lin_chromedriver")  # Chrome
         #driver = webdriver.Firefox(executable_path='drivers\geckodriver.exe')  # Firefox
         yield driver
 
