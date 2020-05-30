@@ -6,7 +6,6 @@ build:
     stage: build
     script:
         - mkdir -p test_results
-        - mv results.xml old_results.xml
     artifacts:
         paths:
             - test_results/
