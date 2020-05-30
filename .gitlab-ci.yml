@@ -38,10 +38,7 @@ e2e:chrome:
     - pip install pytest
     - pip install selenium
     - pip install pytest-selenium
-    - wget -q -O — https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    - echo ‘deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main’ | tee /etc/apt/sources.list.d/google-chrome.list
-    - apt-get update
-    - apt-get install google-chrome-stable -y
+    - chmod 777 /builds/dosehunter/testingmandatory2_exam/driver/lin_chromedriver
 #    - pytest code/test/test_app.py
     - pytest -vvv --driver Remote --capability browserName chrome --host selenium --port 4444 code/test/test_app.py
   services:
