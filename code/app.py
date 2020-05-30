@@ -10,18 +10,43 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
+#This will be changed later
 app.secret_key = 'secret'
 api = Api(app)
 
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
+# POST url/auth
+# {
+# 	"username": "test",
+# 	"password": "test"
+# }
+# - Will return a JWT token. 
 jwt = JWT(app, authenticate, identity)  # /auth
 
+
+#POST url/register
+# {
+# 	"username": "test",
+# 	"password": "test",
+# 	"email":"test@gmail.com"
+# }
+# - Will create a new user in the DB
 api.add_resource(UserRegister, '/register')
-api.add_resource(PhotoUpload, '/upload')
+
+#POST url/photo
+# having a form with
+# photo_name : "some_name"
+# data : example.jpg - really any file at the moment
+# will upload the file to the DB
+api.add_resource(PhotoUpload, '/photo')
 
 
 # ##API CALLS
 
-# # GET /user/auth
+# # GET /auth
 # @app.route('/user/', methods=['GET'])
 # def get_user():
 #     pass
@@ -42,7 +67,7 @@ api.add_resource(PhotoUpload, '/upload')
 # @app.route('/photo/<photo_id>')
 # def get_photo(photo_id):
 #     pass
-# #POST /photo/ @
+# #POST /photo/ 
 # @app.route('/photo/', metods=['POST'])
 # def add_photo():
 #     pass

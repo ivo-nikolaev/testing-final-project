@@ -12,9 +12,6 @@ cursor.execute(create_table)
 create_table = "CREATE TABLE IF NOT EXISTS photos (id INTEGER PRIMARY KEY AUTOINCREMENT, photo_name text, data BLOB, user_id INTEGER, CONSTRAINT fk_user_ids FOREIGN KEY (user_id) REFERENCES user(id))"
 cursor.execute(create_table)
 
-create_table = "CREATE TABLE IF NOT EXISTS items (name text PRIMARY KEY, price real)"
-cursor.execute(create_table)
-
 connection.commit()
 
 connection.close()
