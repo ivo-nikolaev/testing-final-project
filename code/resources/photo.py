@@ -15,21 +15,15 @@ class PhotoUpload(Resource):
                         required=True,
                         help="This field cannot be blank."
                         )
-    # parser.add_argument('data',
-    #                     type=file,
-    #                     required=True,
-    #                     help="You must provide a file"
-    #                     )
     parser.add_argument('data',
                         type=FileStorage,
-                        location='files')
+                        location='files',
+                        required=True,
+                        help="You must provide a file")
     
     @jwt_required()
     def post(self):
         data = PhotoUpload.parser.parse_args()
-
-        # if PhotoModel.find_by_username(data['photo_name']):
-        #     return {"message": "A photo with that name already exists"}, 400
 
         file = data['data']
         newFile = file.read()
@@ -39,7 +33,7 @@ class PhotoUpload(Resource):
         photo = PhotoModel(data['photo_name'],newFile, user_id)
         photo.save_to_db()
 
-        return {"message": "Picture added succsfully"}, 201
+        return {"message": "Picture added succesfully"}, 201
 
 class PhotoGet(Resource):
     @jwt_required()
