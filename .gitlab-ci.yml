@@ -26,4 +26,4 @@ test:
         - py.test --junitxml test_results/results.xml test_models.py -v
     artifacts:
         reports:
-            junit: test_results/results.xml
+            junit: code/test/test_results/results.xml
