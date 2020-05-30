@@ -36,7 +36,7 @@ e2e:chrome:
     - pwd
     - ls -l /builds/dosehunter/testingmandatory2_exam/
     - pip install pytest
-#    - pip install webdriver-manager
+    - pip install webdriver-manager
     - pip install selenium
     - pip install pytest-selenium
 #    - pytest code/test/test_app.py
