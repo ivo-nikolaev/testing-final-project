@@ -1,29 +1,37 @@
 stages:
-    - build
-    - test
+  - build
+  - test
+  - confidence-check
 
 build:
-    stage: build
-    script:
-        - mkdir -p code/test/test_results
-    artifacts:
-        paths:
-            - code/test/test_results/
+  stage: build
+  script:
+    - mkdir -p code/test/test_results
+  artifacts:
+    paths:
+      - code/test/test_results/
 
 test:
-    stage: test
-    image: python:3.7
-    script:
-        - echo "Testing"
-        - pip install -r requirments.txt
-        - pip install pytest
-        - pip install webdriver-manager
-        - pwd
-        - cd code/test/
-        - ls -l
-        - export PYTHONPATH="$PYTHONPATH:."
-        - python -c "import sys;print(sys.path)"
-        - py.test --junitxml test_results/results.xml test_models.py -v
-    artifacts:
-        reports:
-            junit: code/test/test_results/results.xml
+  stage: test
+  image: python:3.7
+  script:
+    - echo "Testing"
+    - pip install -r requirments.txt
+    - pip install pytest
+    - pip install webdriver-manager
+    - pwd
+    - cd code/test/
+    - ls -l
+    - export PYTHONPATH="$PYTHONPATH:."
+    - python -c "import sys;print(sys.path)"
+    - py.test --junitxml test_results/results.xml test_app.py -v
+  artifacts:
+    reports:
+      junit: code/test/test_results/results.xml
+
+e2e:firefox:
+  stage: confidence-check
+  services:
+    - selenium/standalone-firefox
+  script:
+    - npm run confidence-check --host=selenium__standalone-firefox
