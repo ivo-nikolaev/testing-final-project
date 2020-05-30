@@ -34,8 +34,8 @@ e2e:chrome:
   image: python:3.7
   script:
     - pip install pytest
-    - pip install selenium
     - pip install webdriver-manager
+    - pip install selenium
     - pytest code/test/test_app.py
 #    - -vvv --driver Firefox --host selenium --port 4444 code/test/test_app.py
   services:
