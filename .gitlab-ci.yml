@@ -8,7 +8,7 @@ build:
         - mkdir -p test_results
     artifacts:
         paths:
-            - test_results/
+            - code/test/test_results/
 
 test:
     stage: test
