@@ -48,6 +48,12 @@ api.add_resource(PhotoUpload, '/photo')
 api.add_resource(PhotoGet, '/photo/<string:_id>')
 
 
+## FRONT END
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
 # ##API CALLS
 
 # # GET /auth
