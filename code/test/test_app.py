@@ -12,8 +12,8 @@ class TestApp:
 
     @pytest.fixture
     def driver(self):
-        driver = webdriver.Chrome(ChromeDriverManager().install())
-        #driver = webdriver.Chrome(executable_path=r"driver/chromedriver.exe")  # Chrome
+        #driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver = webdriver.Chrome(executable_path=r"driver/chromedriver")  # Chrome
         #driver = webdriver.Firefox(executable_path='drivers\geckodriver.exe')  # Firefox
         yield driver
 
