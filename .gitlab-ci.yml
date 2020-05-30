@@ -38,8 +38,9 @@ e2e:chrome:
     - pip install pytest
     - pip install webdriver-manager
     - pip install selenium
+    - pip install pytest-selenium
     - pytest code/test/test_app.py
-#    - -vvv --driver Firefox --host selenium --port 4444 code/test/test_app.py
+#    - pytest -vvv --driver Remote --capability browserName chrome --host selenium --port 4444 code/test/test_app.py
   services:
     - name: selenium/standalone-chrome
       alias: selenium
