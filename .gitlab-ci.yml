@@ -30,8 +30,16 @@ test:
       junit: code/test/test_results/results.xml
 
 e2e:firefox:
-  stage: confidence-check
-  services:
-    - selenium/standalone-firefox
+  stage: test
   script:
-    - npm run confidence-check --host=selenium__standalone-firefox
+    - pytest -vvv --driver Remote --capability browserName firefox --host selenium --port 4444 code/test/test_app.py -k test_page_title
+  services:
+    - name: selenium/standalone-firefox
+      alias: selenium
+
+#e2e:firefox:
+#  stage: confidence-check
+#  services:
+#    - selenium/standalone-firefox
+#  script:
+#    - npm run confidence-check --host=selenium__standalone-firefox
