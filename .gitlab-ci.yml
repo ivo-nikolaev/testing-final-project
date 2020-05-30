@@ -32,8 +32,6 @@ unit test:
 e2e:firefox:
   stage: test
   image: python:3.7
-  before_script:
-    - make install
   script:
     - pwd
     - ls -l /builds/dosehunter/testingmandatory2_exam/
