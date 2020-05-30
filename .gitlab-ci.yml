@@ -11,7 +11,7 @@ build:
     paths:
       - code/test/test_results/
 
-test:
+unit test:
   stage: test
   image: python:3.7
   script:
@@ -31,6 +31,7 @@ test:
 
 e2e:firefox:
   stage: test
+  image: python:3.7
   script:
     # WE SHOULD INSTALL PYTEST AND WEBDRIVER-MANAGER THEN DO THE TESTING
     - pip install pytest
