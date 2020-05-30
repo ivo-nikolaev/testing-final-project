@@ -38,7 +38,7 @@ e2e:firefox:
     - pip install pytest
     - pip install selenium
     - pip install pytest-selenium
-#    - chmod 777 /builds/dosehunter/testingmandatory2_exam/driver/lin_chromedriver
+    - chmod 777 /builds/dosehunter/testingmandatory2_exam/driver/geckodriver
 #    - pytest code/test/test_app.py
     - pytest -vvv --driver Remote --capability browserName firefox --host selenium --port 4444 code/test/test_app.py
   services:
