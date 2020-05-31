@@ -4,7 +4,7 @@ from flask_jwt import JWT
 
 from security import authenticate, identity
 from resources.user import UserRegister
-from resources.photo import PhotoUpload, PhotoGet, PhotosById
+from resources.photo import PhotoUpload, PhotoGet, PhotosById, PhotoGetMine
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -43,11 +43,18 @@ api.add_resource(UserRegister, '/register')
 # will upload the file to the DB
 api.add_resource(PhotoUpload, '/photo')
 
-#GET url/photo/id (if you have a picture uploaded it should be 1)
+#GET url/photo/id (if you have a picture uploaded it should be 1, 2, 3 ect)
+#Only photos set to visible will can be seen
 #downloades the picture - you can test it in the browser
 api.add_resource(PhotoGet, '/photo/<string:_id>')
 
+#GET a photo - only works for the owner of the photos, if they are authorized
+#Should be used in the /user page
+app.add_resource(PhotoGetMine, '/myphoto/<string:_id')
+
+#GET a list of photo IDs (not the photos themselves), based on their owner
 api.add_resource(PhotosById, '/photos/<string:user_id>')
+
 
 
 ## FRONT END

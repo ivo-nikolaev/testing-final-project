@@ -39,18 +39,18 @@ class PhotoUpload(Resource):
 
         return {"message": "Picture added succesfully"}, 201
 
-# It's ment only for the owner of the photo
-# class PhotoGet(Resource):
-#     @jwt_required()
-#     def get(self, _id):
-#         photo = PhotoModel.find_by_id(_id)
+#It's ment only for the owner of the photo
+class PhotoGetMine(Resource):
+    @jwt_required()
+    def get(self, _id):
+        photo = PhotoModel.find_by_id(_id)
 
-#         user_id = current_identity.id
+        user_id = current_identity.id
 
-#         if (photo and photo.user_id == user_id) :
-#             return send_file(
-#                 BytesIO(photo.data),
-#                 mimetype="image/jpeg")
+        if (photo and photo.user_id == user_id) :
+            return send_file(
+                BytesIO(photo.data),
+                mimetype="image/jpeg")
 
 # Get any photo, as long as it's visible
 class PhotoGet(Resource):
