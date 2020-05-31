@@ -18,11 +18,11 @@ unit test:
     - pip install -r requirments.txt
     - pip install pytest
     - pwd
-    - cd code/test/
+#    - cd code/test/
     - ls -l
     - export PYTHONPATH="$PYTHONPATH:."
     - python -c "import sys;print(sys.path)"
-    - py.test --junitxml test_results/results.xml test_models.py -v
+    - py.test --junitxml test_results/results.xml -vvv
   artifacts:
     reports:
       junit: code/test/test_results/results.xml
