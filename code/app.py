@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, Blueprint
 from flask_restful import Api
 from flask_jwt import JWT
 
@@ -7,20 +7,30 @@ from security import authenticate, identity
 from resources.user import UserRegister
 from resources.photo import PhotoUpload, PhotoGet, PhotosById, PhotoGetMine, PhotosByIdAuth, PhotoDelete
 
+bp = Blueprint('myapp', __name__)
+
+#@app.route('/')
+@bp.route('/')
+def home():
+    return render_template('index.html')
+
 def create_app(conf=None):
     app = Flask(__name__)
-    if conf:
-        app.config.from_pyfile(conf)
-
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['PROPAGATE_EXCEPTIONS'] = True
     #This will be changed later
     app.secret_key = 'secret'
-    db.init_app(app)
-    return app, db
+    init_db(app)
 
-app, db = create_app()
+    app.register_blueprint(bp)
+
+    return app#, db
+
+def init_db(app):
+    db.init_app(app)
+
+app = create_app()
 
 api = Api(app)
 
@@ -77,9 +87,6 @@ api.add_resource(PhotosByIdAuth, '/myphotos/<int:_id>')
 
 ## FRONT END
 
-@app.route('/')
-def home():
-    return render_template('index.html')
 
 # ##API CALLS
 
@@ -120,6 +127,6 @@ def home():
 
 
 if __name__ == '__main__':
-    from db import db
-    db.init_app(app)
+    #from db import db
+    #db.init_app(app)
     app.run(port=5000, debug=True)
