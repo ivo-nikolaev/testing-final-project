@@ -1,5 +1,5 @@
-from flask import send_file
-from flask_restful import Resource, reqparse, request 
+from flask import send_file, Blueprint
+from flask_restful import Resource, reqparse, request
 from werkzeug.datastructures import FileStorage
 from flask_jwt import jwt_required, current_identity
 from io import BytesIO
@@ -52,9 +52,11 @@ class PhotoGetMine(Resource):
                 BytesIO(photo.data),
                 mimetype="image/jpeg")
 
+photo_bp = Blueprint("api_bp", __name__)
 # Get any photo, as long as it's visible
 class PhotoGet(Resource):
-    def get(self, _id):
+    @photo_bp.route('/photo/<int:_id>')
+    def get(_id):
         photo = PhotoModel.find_by_id(_id)
         if (photo and photo.visible == 1) :
             return send_file(

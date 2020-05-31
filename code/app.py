@@ -32,6 +32,9 @@ def create_app(conf=False):
         app.secret_key = 'secret'
     init_db(app)
 
+    from resources.photo import photo_bp
+
+    app.register_blueprint(photo_bp)
     app.register_blueprint(bp)
     #app.register_blueprint(api_blueprint)
     app.register_blueprint(api_bp)
@@ -43,7 +46,8 @@ def init_db(app):
 
 app = create_app()
 
-api = Api(api_bp)
+api = Api(app)
+api_spec = Api(api_bp)
 
 @app.before_first_request
 def create_tables():
@@ -65,7 +69,7 @@ jwt = JWT(app, authenticate, identity)  # /auth
 # 	"email":"test@gmail.com"
 # }
 # - Will create a new user in the DB
-api.add_resource(UserRegister, '/register')
+api_spec.add_resource(UserRegister, '/register')
 
 #POST url/photo
 # having a form with
@@ -80,7 +84,10 @@ api.add_resource(PhotoDelete, '/photo/<int:_id>')
 #GET url/photo/id (if you have a picture uploaded it should be 1, 2, 3 ect)
 #Only photos set to visible will can be seen
 #downloades the picture - you can test it in the browser
-api.add_resource(PhotoGet, '/photo/<int:_id>')
+###########################################################################################
+### NOTICE THIS IS MOVED TO RESOURCES-PHOTO
+###########################################################################################
+#api.add_resource(PhotoGet, '/photo/<int:_id>')
 
 #GET a photo - only works for the owner of the photos, if they are authorized
 #Should be used in the /user page

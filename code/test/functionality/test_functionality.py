@@ -96,6 +96,7 @@ class TestUserFunctionality:
         # Invalid payloads
         ({'identity': 42}, "test_user_1", "test_password_1", "test_mail_1@gmail.com", False),
         ({'identity': 11}, "test_user_1", "test_password_1", "test_mail_1@gmail.com", False),
+        ({'identity': 0}, "test_user_1", "test_password_1", "test_mail_1@gmail.com", False),
         ({'identity': -1}, "test_user_1", "test_password_1", "test_mail_1@gmail.com", False),
     ])
     def test_identity(self, test_client, init_database, payload, username, password, email, valid):

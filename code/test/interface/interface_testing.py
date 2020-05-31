@@ -4,7 +4,8 @@ from webdriver_manager.chrome import ChromeDriverManager  # pip install webdrive
 from selenium.webdriver.common.keys import Keys
 import time
 # https://www.lambdatest.com/blog/test-automation-using-pytest-and-selenium-webdriver/
-
+# To run from root dir (testing-final-project):
+# pytest code/test/interface/interface_testing.py -vvv
 
 # Retrieve the driver and pass it to the class once
 @pytest.fixture(scope="class", autouse=True)
