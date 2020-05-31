@@ -6,11 +6,13 @@ class PhotoModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     photo_name = db.Column(db.String(80))
     data = db.Column(db.LargeBinary)
+    visible = db.Column(db.Boolean)
     user_id = db.Column(db.Integer)
 
-    def __init__(self, photo_name, data, user_id):
+    def __init__(self, photo_name, data, visible, user_id):
         self.photo_name = photo_name
         self.data = data
+        self.visible = visible
         self.user_id = user_id
 
     @classmethod
@@ -20,6 +22,11 @@ class PhotoModel(db.Model):
     @classmethod
     def find_by_name(cls, name):
         return cls.query.filter_by(username = name).first()
+
+    @classmethod
+    def find_all_by_user_id(cls, user_id):
+        return cls.query.filter_by(user_id = user_id).all()
+        
 
     def save_to_db(self):
         db.session.add(self)

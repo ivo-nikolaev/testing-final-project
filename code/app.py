@@ -4,7 +4,7 @@ from flask_jwt import JWT
 
 from security import authenticate, identity
 from resources.user import UserRegister
-from resources.photo import PhotoUpload, PhotoGet
+from resources.photo import PhotoUpload, PhotoGet, PhotosById
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -46,6 +46,8 @@ api.add_resource(PhotoUpload, '/photo')
 #GET url/photo/id (if you have a picture uploaded it should be 1)
 #downloades the picture - you can test it in the browser
 api.add_resource(PhotoGet, '/photo/<string:_id>')
+
+api.add_resource(PhotosById, '/photos/<string:user_id>')
 
 
 ## FRONT END
