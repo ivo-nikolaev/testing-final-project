@@ -62,7 +62,8 @@ db.sqlite3
 db.sqlite3-journal
 
 # Flask stuff:
-instance/
+# I kinda need instance.. - Arvid
+# instance/
 .webassets-cache
 
 # Scrapy stuff:
