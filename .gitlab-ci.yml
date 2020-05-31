@@ -17,6 +17,8 @@ unit test:
     - echo "Testing"
     - pip install -r requirments.txt
     - pip install pytest
+#    - pip install pytest-flask
+#    - pip install pytest-flask-sqlalchemy
     - pwd
 #    - cd code/test/
     - ls -l
