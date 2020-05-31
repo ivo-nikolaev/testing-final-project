@@ -66,9 +66,41 @@ class TestUserFunctionality:
         ("test_user_1", "test_password_", "Test_Mail_3@Gmail.Com", 1, False),
     ])
     def test_authenticate(self, test_client, init_database, username, password, email, uid, valid):
+        '''
+        Test authentication of users
+
+        :param test_client: Flask app client for testing (Fixture)
+        :param init_database: Setup database if not already done (Fixture)
+        :param username: String, max 80 char
+        :param password: String, max 80 char
+        :param email: String, max 80 char
+        :param uid: id of returned user
+        :param valid: whether testing a valid user or not
+        '''
         test_user = authenticate(username, password)
         if valid:
             assert test_user.id == uid
+            assert test_user.username == username
+            assert test_user.password == password
+            assert test_user.email == email
+        else:
+            assert test_user is None
+
+        print(test_user)  # If anything goes wrong
+
+    @pytest.mark.parametrize("payload, username, password, email, valid", [
+        # Valid payloads using mocked payloads:
+        ({'identity': 1}, "test_user_1", "test_password_1", "test_mail_1@gmail.com", True),
+        ({'identity': 2}, "TEST_USER_2", "TEST_PASSWORD_2", "TEST_MAIL_2@GMAIL.COM", True),
+        ({'identity': 3}, "Test_User_3", "Test_Password_3", "Test_Mail_3@Gmail.Com", True),
+        # Invalid payloads
+        ({'identity': 42}, "test_user_1", "test_password_1", "test_mail_1@gmail.com", False),
+        ({'identity': 11}, "test_user_1", "test_password_1", "test_mail_1@gmail.com", False),
+        ({'identity': -1}, "test_user_1", "test_password_1", "test_mail_1@gmail.com", False),
+    ])
+    def test_identity(self, test_client, init_database, payload, username, password, email, valid):
+        test_user = identity(payload)
+        if valid:
             assert test_user.username == username
             assert test_user.password == password
             assert test_user.email == email
