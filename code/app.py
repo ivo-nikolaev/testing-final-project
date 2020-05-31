@@ -2,16 +2,26 @@ from flask import Flask, render_template
 from flask_restful import Api
 from flask_jwt import JWT
 
+from db import db
 from security import authenticate, identity
 from resources.user import UserRegister
 from resources.photo import PhotoUpload, PhotoGet, PhotosById, PhotoGetMine, PhotosByIdAuth, PhotoDelete
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['PROPAGATE_EXCEPTIONS'] = True
-#This will be changed later
-app.secret_key = 'secret'
+def create_app(conf=None):
+    app = Flask(__name__)
+    if conf:
+        app.config.from_pyfile(conf)
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['PROPAGATE_EXCEPTIONS'] = True
+    #This will be changed later
+    app.secret_key = 'secret'
+    db.init_app(app)
+    return app, db
+
+app, db = create_app()
+
 api = Api(app)
 
 @app.before_first_request

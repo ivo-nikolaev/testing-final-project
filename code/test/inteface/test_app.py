@@ -44,8 +44,8 @@ class TestApp:
 
     @pytest.mark.parametrize("photo_id", [
         (2),
-        (2),
-        (2),
+        (8),
+        (10),
     ])
     def test_see_photo(self, photo_id):
         self.driver.get(f"{self.URL}:{self.PORT}/{self.PHOTO}/{photo_id}")
