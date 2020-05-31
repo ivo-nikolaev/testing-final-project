@@ -89,6 +89,16 @@ class PhotosByIdAuth(Resource):
 
             return list_of_ids
 
+class PhotoDelete(Resource):
+    @jwt_required()
+    def delete(self, _id):
+        photo = PhotoModel.find_by_id(_id)
+        user_id = current_identity.id
+        if photo and user_id == photo.user_id:
+            photo.delete_from_db()
+            return {'message': 'Photo was deleted.'}
+        return {'message': 'Photo not found.'}, 404
+
 #Retun a list of all the photos, owned by a used if that user is currentely authorized
 
 # class PhotoGet(Resource):

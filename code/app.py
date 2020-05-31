@@ -4,7 +4,7 @@ from flask_jwt import JWT
 
 from security import authenticate, identity
 from resources.user import UserRegister
-from resources.photo import PhotoUpload, PhotoGet, PhotosById, PhotoGetMine, PhotosByIdAuth
+from resources.photo import PhotoUpload, PhotoGet, PhotosById, PhotoGetMine, PhotosByIdAuth, PhotoDelete
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -43,21 +43,26 @@ api.add_resource(UserRegister, '/register')
 # will upload the file to the DB
 api.add_resource(PhotoUpload, '/photo')
 
+#DELETE photo
+api.add_resource(PhotoDelete, '/photo/<int:_id>')
+
 #GET url/photo/id (if you have a picture uploaded it should be 1, 2, 3 ect)
 #Only photos set to visible will can be seen
 #downloades the picture - you can test it in the browser
-api.add_resource(PhotoGet, '/photo/<string:_id>')
+api.add_resource(PhotoGet, '/photo/<int:_id>')
 
 #GET a photo - only works for the owner of the photos, if they are authorized
 #Should be used in the /user page
 # ADD GET for all the photos, owned by this user" 
-api.add_resource(PhotoGetMine, '/myphoto/<string:_id>')
+api.add_resource(PhotoGetMine, '/myphoto/<int:_id>')
 
 #GET a list of photo IDs (not the photos them selves), based on their owner
 api.add_resource(PhotosById, '/photos/<int:user_id>')
 
 #GET a list of photo IDs (not the photos them selves), based on their owner IF THE OWNER IT AUTH
 api.add_resource(PhotosByIdAuth, '/myphotos/<int:_id>')
+
+#DELETE a photo by ID, if the user is AUTH
 
 
 ## FRONT END
