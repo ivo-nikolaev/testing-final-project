@@ -17,7 +17,6 @@ unit test:
     - echo "Testing"
     - pip install -r requirments.txt
     - pip install pytest
-#    - pip install webdriver-manager
     - pwd
     - cd code/test/
     - ls -l
@@ -27,22 +26,6 @@ unit test:
   artifacts:
     reports:
       junit: code/test/test_results/results.xml
-
-e2e:firefox:
-  stage: test
-  image: python:3.7
-  script:
-    - pwd
-    - ls -l /builds/dosehunter/testingmandatory2_exam/
-    - pip install pytest
-    - pip install selenium
-    - pip install pytest-selenium
-    - chmod 777 /builds/dosehunter/testingmandatory2_exam/driver/geckodriver
-    - pytest code/test/test_app.py
-    - pytest -vvv --driver firefox code/test/test_app.py
-  services:
-    - name: selenium/standalone-firefox
-      alias: selenium
 
 #e2e:firefox:
 #  stage: test
