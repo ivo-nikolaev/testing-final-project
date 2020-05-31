@@ -74,6 +74,23 @@ class PhotosById(Resource):
 
         return list_of_ids
 
+class PhotosByIdAuth(Resource):
+    @jwt_required()
+    def get(self, _id):
+        #Get the ID of the Auth user
+        user_id = current_identity.id
+
+        if int(user_id) == int(_id):
+            photos = PhotoModel.find_all_by_user_id(_id)
+            print(photos)
+            list_of_ids = []
+            for photo in photos:
+                list_of_ids.append(photo.id)
+
+            return list_of_ids
+
+#Retun a list of all the photos, owned by a used if that user is currentely authorized
+
 # class PhotoGet(Resource):
 #     @jwt_required()
 #     def get(self, _id):
