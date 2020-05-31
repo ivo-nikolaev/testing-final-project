@@ -28,6 +28,10 @@ class TestApp:
     def prep_page(self):
         self.driver.get(f"{self.URL}:{self.PORT}/")
 
+    #def test_testpage(self):
+    #    self.driver.get("/test_page")
+    #    time.sleep(2)
+
     @pytest.mark.parametrize("username, password", [
         ("test", "test"),
         ("test2", "test2"),
@@ -49,9 +53,6 @@ class TestApp:
     ])
     def test_see_photo(self, photo_id):
         self.driver.get(f"{self.URL}:{self.PORT}/{self.PHOTO}/{photo_id}")
-
-    def test_see_album(self):
-        pass
 
     @staticmethod
     def log(msg):

@@ -2,8 +2,8 @@
 # pip install pytest-flask-sqlalchemy
 import pytest
 from models.user import UserModel
-from app import create_app
-from db import db
+from app import create_app, db
+#from db import db
 from flask import Flask, url_for
 
 @pytest.fixture(scope='module')
@@ -13,8 +13,9 @@ def new_user():
 
 @pytest.fixture(scope='module')
 def test_client():
-    #flask_app, db = create_app('instance/flask_test.cfg')
-    flask_app = create_app()
+    flask_app = create_app('flask_test.cfg')
+    #flask_app = create_app(True)
+    #flask_app = create_app()
     # Flask provides a way to test your application by exposing the Werkzeug test Client
     # and handling the context locals for you.
     testing_client = flask_app.test_client()
@@ -31,7 +32,6 @@ def test_client():
 @pytest.fixture(scope='module')
 def init_database():
     db.create_all()
-    print("Are we even doing this?")
     # Test users
     user1 = UserModel('test_user_1', 'test_password_1', 'test_mail_1@gmail.com')
     user2 = UserModel('TEST_USER_2', 'TEST_PASSWORD_2', 'TEST_MAIL_2@GMAIL.COM')

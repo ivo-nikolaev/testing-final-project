@@ -8,31 +8,42 @@ from resources.user import UserRegister
 from resources.photo import PhotoUpload, PhotoGet, PhotosById, PhotoGetMine, PhotosByIdAuth, PhotoDelete
 
 bp = Blueprint('myapp', __name__)
+api_bp = Blueprint('api', __name__)
+
 
 #@app.route('/')
 @bp.route('/')
 def home():
     return render_template('index.html')
 
-def create_app(conf=None):
-    app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['PROPAGATE_EXCEPTIONS'] = True
-    #This will be changed later
-    app.secret_key = 'secret'
+@bp.route('/test_page')
+def test_page():
+    return render_template('test_page.html')
+
+def create_app(conf=False):
+    app = Flask(__name__, instance_relative_config=True)
+    if conf:
+        app.config.from_pyfile(conf)
+    else:
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+        app.config['PROPAGATE_EXCEPTIONS'] = True
+        #This will be changed later
+        app.secret_key = 'secret'
     init_db(app)
 
     app.register_blueprint(bp)
+    #app.register_blueprint(api_blueprint)
+    app.register_blueprint(api_bp)
 
-    return app#, db
+    return app
 
 def init_db(app):
     db.init_app(app)
 
 app = create_app()
 
-api = Api(app)
+api = Api(api_bp)
 
 @app.before_first_request
 def create_tables():
