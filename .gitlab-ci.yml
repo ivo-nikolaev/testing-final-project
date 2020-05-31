@@ -1,20 +1,25 @@
 stages:
-  - build
+#  - build
   - test
 
-build:
-  stage: build
-  script:
-    - mkdir -p code/test/test_results
-  artifacts:
-    paths:
-      - code/test/test_results/
+# Build might be exescive as there currently is no use for a build
+# In the future, when interface testing is added, it might be usefull to have
+# A build  or a test setup phase to make our python image with requirements
+# So the different test jobs aren't all downloading the same requirements
+#build:
+#  stage: build
+#  script:
+#    - mkdir -p code/test/test_results
+#  artifacts:
+#    paths:
+#      - code/test/test_results/
 
 unit test:
   stage: test
   image: python:3.7
   script:
     - echo "Testing"
+    - mkdir -p code/test/test_results  # While build isn't being used it'll run the folder thing here
     - pip install -r requirments.txt
     - pip install pytest
 #    - pip install pytest-flask
