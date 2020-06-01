@@ -36,6 +36,7 @@ def init_database():
     user1 = UserModel('test_user_1', 'test_password_1', 'test_mail_1@gmail.com')
     user2 = UserModel('TEST_USER_2', 'TEST_PASSWORD_2', 'TEST_MAIL_2@GMAIL.COM')
     user3 = UserModel('Test_User_3', 'Test_Password_3', 'Test_Mail_3@Gmail.Com')
+    ## Add photo
     db.session.add(user1)
     db.session.add(user2)
     db.session.add(user3)

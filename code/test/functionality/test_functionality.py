@@ -16,8 +16,8 @@ class TestUserFunctionality:
         ("martin",          "mpassw",           "mart@42.com",      400, b"A user with that username already exists"),
         # Duplicate, same email as entry 2:
         ("martin42",        "mpassw",           "MA@2.C",           400, b"A user with that email already exists"),
+        # Add test fro 80 plus chars
     ])
-
     def test_registration(self, test_client, init_database, username, password, email, status_code, data):
         """
         Test registering users
